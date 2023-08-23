@@ -72,6 +72,7 @@ public class DeveloperData implements ApplicationRunner {
         cars.add(new Car("Genesis", "G70", 70.0, 12));
         cars.add(new Car("Kia", "Soul", 50.0, 10));
         cars.add(new Car("Hyundai", "Santa Fe", 60.0, 13));
+        carRepository.saveAll(cars);
 
     }
 }

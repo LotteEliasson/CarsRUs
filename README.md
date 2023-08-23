@@ -2,6 +2,7 @@
 
 Svar til første aflevering.
 
+
 The idea with, and reasons for why to use, a ORM-mapper
 -	Håndterer data mellem OOP i Spring Boot og databasen, ORM simplificerer kommunikationen og man undgår en masse kode JDBC samt SQL. 
 The meaning of the terms JPA, Hibernate and Spring Data JPA and how they are connected
