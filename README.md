@@ -74,6 +74,7 @@ Sletter evt data og opretter dataset før hver test via h2 som en in memory data
 Test der tester om CarRepository er i stand til at tælle de oprettede objekter i databasen, returneres de tre midlertidige objekter I databasen oprettet i @BeforeEach er det true. 
 
 Forventer(assertEquals) tre, er det sandt går testen igennem.
+
          @Test
              public void countAll(){
                  long count = carRepository.count();
