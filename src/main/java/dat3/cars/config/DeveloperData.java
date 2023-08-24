@@ -1,7 +1,9 @@
 package dat3.cars.config;
 
 import dat3.cars.entity.Car;
+import dat3.cars.entity.Member;
 import dat3.cars.repository.CarRepository;
+import dat3.cars.repository.MemberRepository;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Controller;
@@ -14,10 +16,15 @@ import java.util.List;
 public class DeveloperData implements ApplicationRunner {
 
     CarRepository carRepository;
+    MemberRepository memberRepository;
 
-    public DeveloperData(CarRepository carRepository){
+    public DeveloperData(CarRepository carRepository, MemberRepository memberRepository){
         this.carRepository = carRepository;
+        this.memberRepository = memberRepository;
     }
+
+
+
 
 
     @Override
@@ -74,5 +81,17 @@ public class DeveloperData implements ApplicationRunner {
         cars.add(new Car("Hyundai", "Santa Fe", 60.0, 13));
         carRepository.saveAll(cars);
 
+
+
+        List<Member> members = new ArrayList<>();
+
+        members.add(new Member("john_doe", "securepass1", "john.doe@example.com", "John", "Doe", "123 Main St", "New York", "10001"));
+        members.add(new Member("jane_smith", "mypassword123", "jane.smith@example.com", "Jane", "Smith", "456 Elm St", "Los Angeles", "90001"));
+        members.add(new Member("bob_jones", "p@ssw0rd", "bob.jones@example.com", "Bob", "Jones", "789 Oak St", "Chicago", "60601"));
+
+
+
     }
+
+
 }
