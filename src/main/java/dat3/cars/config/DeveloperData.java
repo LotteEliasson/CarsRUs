@@ -88,7 +88,7 @@ public class DeveloperData implements ApplicationRunner {
         members.add(new Member("john_doe", "securepass1", "john.doe@example.com", "John", "Doe", "123 Main St", "New York", "10001"));
         members.add(new Member("jane_smith", "mypassword123", "jane.smith@example.com", "Jane", "Smith", "456 Elm St", "Los Angeles", "90001"));
         members.add(new Member("bob_jones", "p@ssw0rd", "bob.jones@example.com", "Bob", "Jones", "789 Oak St", "Chicago", "60601"));
-
+        memberRepository.saveAll(members);
 
 
     }
