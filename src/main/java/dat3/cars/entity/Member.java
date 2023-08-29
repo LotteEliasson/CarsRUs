@@ -1,17 +1,10 @@
 package dat3.cars.entity;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -20,7 +13,7 @@ import java.time.LocalDateTime;
 //Entity framework
 //Mappe frem og tilbage til databasen.
 @Entity
-public class Member {
+public class Member extends AdminDetails{
 
     @Id
     private String username;
@@ -31,15 +24,18 @@ public class Member {
     private String street;
     private String city;
     private String zip;
+    private boolean approved;
+    private int ranking;
 
-    @CreationTimestamp
-    private LocalDateTime created;
-    @UpdateTimestamp
-    private LocalDateTime lastEdited;
+//    @CreationTimestamp
+//    private LocalDateTime created;
+//    @UpdateTimestamp
+//    private LocalDateTime lastEdited;
 
-    public Member(String user, String password, String email, String firstName,
+
+    public Member(String username, String password, String email, String firstName,
                   String lastName, String street, String city, String zip) {
-        this.username = user;
+        this.username = username;
         this.password = password;
         this.email = email;
         this.firstName = firstName;
@@ -47,5 +43,6 @@ public class Member {
         this.street = street;
         this.city = city;
         this.zip = zip;
+        this.ranking = ranking;
     }
 }

@@ -4,10 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import java.time.LocalDateTime;
 
 //lombok
 @Getter
@@ -17,7 +13,7 @@ import java.time.LocalDateTime;
 //Entity framework
 //Mappe frem og tilbage til databasen.
 @Entity
-public class Car {
+public class Car extends AdminDetails{
     //Autogenerer id som pk i databasen for hver objekt
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,10 +28,10 @@ public class Car {
     @Column(name = "max_discount")
     private int bestDiscount;
 
-    @CreationTimestamp
-    private LocalDateTime created;
-    @UpdateTimestamp
-    private LocalDateTime lastEdited;
+//    @CreationTimestamp
+//    private LocalDateTime created;
+//    @UpdateTimestamp
+//    private LocalDateTime lastEdited;
 
     //Constructor
     public Car(String brand, String model, double pricePrDay, int bestDiscount) {
