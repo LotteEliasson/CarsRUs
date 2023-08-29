@@ -9,11 +9,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+    @RestController
     @RequestMapping("api/members")
     public class MemberController {
 
     MemberService memberService;
+
 
     public MemberController(MemberService memberService) {
         this.memberService = memberService;
@@ -26,17 +27,20 @@ import java.util.List;
             return memberService.getMembers(false);
         }
 
+
         //Security Admin
         @GetMapping(path = "/{username}")
         MemberResponse getMemberById(@PathVariable String username) throws Exception {
         return memberService.findById(username);
-    }
+        }
+
 
         //Security --> anonymous
         @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
         MemberResponse addMember(@RequestBody MemberRequest body){
             return memberService.addMember(body);
         }
+
 
         //Security ???
         @PutMapping("/{username}")

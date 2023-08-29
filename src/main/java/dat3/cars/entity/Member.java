@@ -43,6 +43,5 @@ public class Member extends AdminDetails{
         this.street = street;
         this.city = city;
         this.zip = zip;
-        this.ranking = ranking;
     }
 }

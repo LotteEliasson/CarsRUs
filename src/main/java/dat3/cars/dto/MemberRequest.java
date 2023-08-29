@@ -1,6 +1,3 @@
-//DTO Service Layer, anvendes for at have et "lag" mellem Entity og IPA(Controlleren)
-// for derved kun at medbringe de variable der er relevant for brugeren. Øger også sikkerheden for
-// ikke at kunne tilgå følsomme eller irrelevante data for omverden??.
 
 package dat3.cars.dto;
 
@@ -22,6 +19,7 @@ public class MemberRequest {
     String street;
     String city;
     String zip;
+
 
     public static Member getMemberEntity(MemberRequest m){
         return new Member(m.username,m.getPassword(),m.getEmail(), m.firstName, m.lastName,m.getStreet(), m.getCity(), m.getZip());

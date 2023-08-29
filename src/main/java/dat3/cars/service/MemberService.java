@@ -61,7 +61,7 @@ public class MemberService {
         return ResponseEntity.ok(true);
     }
 
-
+        //Finder Member på Primary Key i DB, for Member er det username.
     public MemberResponse findById(String username) {
         Member member = memberRepository.findById(username).
                 orElseThrow(()-> new ResponseStatusException(HttpStatus.BAD_REQUEST,"Member with this username does not exist"));

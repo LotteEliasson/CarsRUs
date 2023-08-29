@@ -32,7 +32,7 @@ public class MemberResponse {
     Boolean approved;
 
     //Convert Member Entity to Member DTO
-    public MemberResponse(Member m, boolean includeAll) {
+    public MemberResponse(Member m, boolean includeAllVarMember) {
         this.username = m.getUsername();
         this.email = m.getEmail();
         this.street = m.getStreet();
@@ -40,7 +40,7 @@ public class MemberResponse {
         this.lastName = m.getLastName();
         this.city = m.getCity();
         this.zip = m.getZip();
-        if(includeAll){
+        if(includeAllVarMember){
             this.created = m.getCreated();
             this.edited = m.getEdited();
             this.approved = m.isApproved();
