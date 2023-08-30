@@ -29,6 +29,8 @@ public class MemberService {
             MemberResponse mr = new MemberResponse(member, includeAll);
             response.add(mr);
         }
+        //Kan udelade ovenstående 5 linier kode, med nedestående.
+        // return List<MemberResponse> response = member.stream().map(((member) -> Memberresponse(member, includeAll)))-tolist();
         return response;
 
     }
@@ -66,5 +68,21 @@ public class MemberService {
         Member member = memberRepository.findById(username).
                 orElseThrow(()-> new ResponseStatusException(HttpStatus.BAD_REQUEST,"Member with this username does not exist"));
         return new MemberResponse(member, true);
+    }
+
+    public void deleteMemberByUsername(String username) {
+        Member member = getMemberByUsername(username);
+        memberRepository.delete(member);
+    }
+
+    private Member getMemberByUsername(String username){
+        return memberRepository.findById(username).
+                orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Member with this username does not exist"));
+    }
+
+    public void setRankingForUser(String username, int value) {
+        Member member = getMemberByUsername(username);
+        member.setRanking(value);
+        memberRepository.save(member);
     }
 }

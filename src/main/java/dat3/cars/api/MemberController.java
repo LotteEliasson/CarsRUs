@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+    //RestController konverterer andre 'sprog' til Java via JSON eksv sql.
     @RestController
     @RequestMapping("api/members")
     public class MemberController {
@@ -42,21 +43,23 @@ import java.util.List;
         }
 
 
-        //Security ???
+        //Security Admin
         @PutMapping("/{username}")
         ResponseEntity<Boolean> editMember(@RequestBody MemberRequest body, @PathVariable String username){
             return memberService.editMember(body,username);
         }
 
-        //Security ????
+        //Security Admin
         @PatchMapping("/ranking/{username}/{value}")
-        ResponseEntity<Boolean> setRankingForUser(@PathVariable String username, @PathVariable int value) {
-            return null;
+        void setRankingForUser(@PathVariable String username, @PathVariable int value) {
+        memberService.setRankingForUser(username, value);
         }
 
-        // Security ????
+        // Security Admin
         @DeleteMapping("/{username}")
-        void deleteMemberByUsername(@PathVariable String username) {}
+        void deleteMemberByUsername(@PathVariable String username) {
+        memberService.deleteMemberByUsername(username);
+        }
 
 
     }

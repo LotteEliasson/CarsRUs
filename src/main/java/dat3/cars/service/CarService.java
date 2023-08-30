@@ -44,7 +44,7 @@ public class CarService {
         return new CarResponse(newCar, true);
     }
 
-
+    //ResponseEntity er en klasse inkl metoder der anvendes - org.springframework.http.HttpEntity<T>
     // ()-> en Lambda funktion der ikke tager en parameter med.
     public ResponseEntity<Boolean> editCar(CarRequest bodyCar, int id) {
 
