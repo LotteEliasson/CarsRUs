@@ -1,5 +1,6 @@
 # CarsRUs
 [![Build and deploy JAR app to Azure Web App - car-lfe](https://github.com/LotteEliasson/CarsRUs/actions/workflows/master_car-lfe.yml/badge.svg)](https://github.com/LotteEliasson/CarsRUs/actions/workflows/master_car-lfe.yml)
+
 Svar til første aflevering.
 
 
