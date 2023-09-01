@@ -15,7 +15,9 @@
 //import java.util.List;
 //
 //import static org.junit.jupiter.api.Assertions.*;
-//
+////DataJpaTest,Disable full autoconfig og starter kun hvad relevant for test,
+//// Roll Back af alt inkl DB efter hver test,
+//// In memory DB her h2,
 ////doc for @DataJpaTest https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/test/autoconfigure/orm/jpa/DataJpaTest.html
 //@DataJpaTest
 //class MemberServiceH2Test {
@@ -24,8 +26,8 @@
 //    MemberRepository memberRepository;
 //    MemberService memberService;
 //
-//    Member m1, m2;  //Talk about references in Java for why we don't add the "isInitialize flag"
-//
+//    Member m1, m2, m3;  //Talk about references in Java for why we don't add the "isInitialize flag"
+//    //Laver 2 testmembers der bliver oprettet i h2 databasen, der bliver anvendt i forb med alle test.
 //    @BeforeEach
 //    void setUp() {
 //        m1 = memberRepository.save(new Member("user1", "pw1", "email1", "fn1", "ln1",  "street1", "city1", "zip1"));
@@ -68,13 +70,26 @@
 //         * Internally addMember savex a Member entity to the database*/
 //    void testAddMember_UserDoesNotExist() {
 //        //Add @AllArgsConstructor to MemberRequest and @Builder to MemberRequest for this to work
-//        MemberResponse response
+//        m3 = memberRepository.save(new Member("newUser", "newPw", "newMail", "newfn", "newln",  "newStreet", "newCity", "newZip"));
+//        memberService = new MemberService(memberRepository);
+//        assertEquals("newUser", m3.getUsername());
+//        assertEquals("newMail", m3.getEmail());
+//        assertEquals("newStreet", m3.getStreet());
+//        //etc
+//
 //    }
 //
 //    @Test
 //    void testAddMember_UserDoesExistThrows() {
 //        //This should test that a ResponseStatus exception is thrown with status= 409 (BAD_REQUEST)
-//        //TODO
+//        MemberRequest memberRequest = new MemberRequest("user2", "pw2", "email1", "fn2", "ln2", "street2", "city2", "zip2");
+//        //memberService bruger memberRepository (injected into memberService), som er @Autowired for at tilgå databasen (ved test h2).
+//        // Her er memberRepository så simpelt at det anvendes i test, ellers ville man have lavet et mock-rep.
+//        memberService = new MemberService(memberRepository);
+//
+//        ResponseStatusException exception = assertThrows(ResponseStatusException.class, ()-> memberService.addMember(memberRequest));
+//        assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
+//
 //    }
 //
 //    @Test
@@ -91,8 +106,10 @@
 //    @Test
 //    void testEditMemberChangePrimaryKeyThrows() {
 //        //Create a MemberRequest from an existing member we can edit
-//        MemberRequest request = new MemberRequest(m1);
-//        //TODO
+//        MemberRequest request = new MemberRequest();
+//        request.setUsername("user1");
+//        ResponseStatusException exception = assertThrows(ResponseStatusException.class, ()-> memberService.addMember(request));
+//        assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
 //    }
 //
 //    @Test
@@ -115,7 +132,6 @@
 //    @Test
 //    void testDeleteMember_ThatDontExist() {
 //      memberService.deleteMemberByUsername("user3");
-//
 //    }
 //}
 //
