@@ -1,15 +1,14 @@
 package dat3.cars.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 //lombok
 @Getter
 @Setter
 @NoArgsConstructor
-
+@AllArgsConstructor
+@Builder
 //Entity framework
 //Mappe frem og tilbage til databasen.
 @Entity
