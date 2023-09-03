@@ -1,5 +1,7 @@
 SVAR TIL ANDEN AFLEVERING.
+
 -What are the benefits of using a RESTful API
+
 REST er stateless, er ikke afhængig af gemt data på servere men alle requests indeholder alle data hver gang et request udføres. Det betyder at man nemmere kan fordele trafikken fra clienterne på flere servere via Loadbalancere, derved kan man undgå overbelastning af den enkelte server.
 REST  anvendes til at håndtere data mellem webapplikationer og server, vores GET-,POST-;PUT-;PATCH-;DELETE-metoder vi anvender i vores Controllere er simple og forståelige http metoder der nemme at anvende.
 REST kan anvendes sammen med flere andre dataformater såsom JSON,HTML i vores tilfælde.
