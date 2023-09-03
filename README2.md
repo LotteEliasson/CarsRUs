@@ -8,10 +8,13 @@ REST kan anvendes sammen med flere andre dataformater såsom JSON,HTML i vores t
 
 
 - What is JSON, and why does JSON fit so well with REST?
+  
 JSON anvendes til at sende data mellem web browser og servere, det er let forståeligt tekstbaseret, hvilket gør det nemt at anvende i praksis. Man kan nemt konvertere requests fra client via @RequestBody til Java, der anvendes i vores DTO’er etc i applikationen. Og omvendt konverteres vores Java til JSON i responses til client(her Web browser). 
 
 - How to design simple CRUD endpoints using spring boot and DTOs to separate api from data structure  -> Focus on your use of DTO's
+  
   Tror næste svar dækker over begge DTO spørgsmål. Ellers har jeg bare ikke lige forstået ovenstående korrekt.
+  
 -  What is the advantage of using DTOs to separate api from data structure when designing rest endpoints
 I Entity klasserne har vi datastrukturen der definerer vores tabeller og koloner i Databasen, hvor DTO definerer hvilke af disse data der skal sendes til brugeren. I Cars'r'Us er det delt op i Request og Respones, for lettere at administrere hvilke data der kræves på hhv forspørgsler og svar i Service laget. Man kan også lettere definerer brugerens adgang ved denne opdeling så den varierer, da man kan tilføje nye Constructorer for ændret adgang til oplysninnger etc.
 
@@ -19,16 +22,39 @@ I Entity klasserne har vi datastrukturen der definerer vores tabeller og koloner
 Ved Mocking isolerer man den kode man ønsker at teste fra afhængigheder, såsom Database, Dependencies etc. Man indsætter Mockdata som konstanter I erstatning for den faktiske data.
 
 - How did you mock database features, either using an in-memory database and/or Mockito
+  
 Jeg har anvendt H2 database og den ligger som Dependency i pom.xml filen altså en tilføjelse i Spring Boot, hvilket er en in-memory database, dog lidt langsommere end Mockito, som opretter en faktisk midlertidig database for test.
       
 
 - Explain the concept Build Server and the role Github Actions play here
+  
 Byggeserver, er en server der tester koden der bliver Pushed til Github om det er muling at bygge(Build) projektet efter der tilføjes nye elementer. Github Actions er en feature indbygget i Github der udfører den Build test for os, hver gang man tilføjer til det Master. Hvis man vil undgå at projektet konstant fejler og ønsker andre kan følge ens arbejde undervejs, kan man eksempeltvis anvende Branches.
 
 - Explain maven, relevant parts in maven, and how maven is used in our CI setup. Explain where maven is used by your GitHub Actions Script(s)
-Maven er vores pom.xml fil, de Dependencies vi tilføjer hertil adminstrere Maven. Derved bliver de features automatiseret i vores applikation, såsom Build, H2, Tests,
+  
+Maven er vores pom.xml fil, de Dependencies vi tilføjer hertil adminstrere Maven. Derved bliver de features automatiseret i vores applikation, såsom Build, H2, Tests, Lombok, MySQL.
+I forhold til Github Action anvender den vores maven.wrapper.jar for at køre projektet -
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Java version
+        uses: actions/setup-java@v1
+        with:
+          java-version: '17'
+
+      - name: Build with Maven
+        run: mvn clean install
+
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v2
+        with:
+          name: java-app
+          path: '${{ github.workspace }}/target/*.jar'
+          retention-days: 1
+  Ved CI forståes det at der konstant skal integreres i applikation, for at skabe gennemskuelighed, via Maven er det muligt kontinuerligt at bygge, teste etc applikationen samt hurtigt og let tilføje til Master, da alt er automatiseret for os inkl. .jar filen 
   
 -  Understand and chose cloud service models (IaaS, PaaS, SaaS, DBaaS)for your projects -> Just explain what you have used for this handin
-  Paas og DBaas
+  
+  I denne aflevering er anvendt Paas og DBaas - Platform as a Service og Databasee as a Service. Det vil sige vi anvender platforme til at Build, deploy og administrere vor applikation (Azure Web App), samt Azure MySQL til vores database(DBaaS). Github er også en platform service vi anvender i for at samarbejde (Collaboration Tool) og Github Actions der automatisk tester vores tilføjelser til det samledet projekt. 
 
 
