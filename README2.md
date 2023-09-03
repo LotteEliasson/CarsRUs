@@ -16,6 +16,7 @@ JSON anvendes til at sende data mellem web browser og servere, det er let forst�
   Tror næste svar dækker over begge DTO spørgsmål. Ellers har jeg bare ikke lige forstået ovenstående korrekt.
   
 -  What is the advantage of using DTOs to separate api from data structure when designing rest endpoints
+  
 I Entity klasserne har vi datastrukturen der definerer vores tabeller og koloner i Databasen, hvor DTO definerer hvilke af disse data der skal sendes til brugeren. I Cars'r'Us er det delt op i Request og Respones, for lettere at administrere hvilke data der kræves på hhv forspørgsler og svar i Service laget. Man kan også lettere definerer brugerens adgang ved denne opdeling så den varierer, da man kan tilføje nye Constructorer for ændret adgang til oplysninnger etc.
 
 - Explain shortly the concept mocking in relation to software testing
