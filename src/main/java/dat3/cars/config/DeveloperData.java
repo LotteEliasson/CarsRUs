@@ -2,29 +2,31 @@ package dat3.cars.config;
 
 import dat3.cars.entity.Car;
 import dat3.cars.entity.Member;
+import dat3.cars.entity.Reservation;
 import dat3.cars.repository.CarRepository;
 import dat3.cars.repository.MemberRepository;
+import dat3.cars.repository.ReservationRepository;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.stereotype.Controller;
+import org.springframework.context.annotation.Configuration;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Controller
+@Configuration
 public class DeveloperData implements ApplicationRunner {
 
     CarRepository carRepository;
     MemberRepository memberRepository;
+    ReservationRepository reservationRepository;
 
-    public DeveloperData(CarRepository carRepository, MemberRepository memberRepository){
+
+    public DeveloperData(CarRepository carRepository, MemberRepository memberRepository, ReservationRepository reservationRepository) {
         this.carRepository = carRepository;
         this.memberRepository = memberRepository;
+        this.reservationRepository = reservationRepository;
     }
-
-
-
-
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -89,8 +91,26 @@ public class DeveloperData implements ApplicationRunner {
         members.add(new Member("bob_jones", "p@ssw0rd", "bob.jones@example.com", "Bob", "Jones", "789 Oak St", "Chicago", "60601"));
         memberRepository.saveAll(members);
 
+        Car car1 = new Car("bil", "bil", 100,10);
+        carRepository.save(car1);
+
+        Member member1 = new Member("test", "test", "test,", "test", "test", "test","test","test");
+        memberRepository.save(member1);
+        LocalDate date1 = LocalDate.now().plusDays(2);
+        LocalDate date2 = LocalDate.now().plusDays(3);
+        Reservation r1 = new Reservation(date1,member1, car1);
+        Reservation r2 = new Reservation(date2, member1, car1);
+        reservationRepository.save(r1);
+        reservationRepository.save(r2);
+
+        System.out.println("Biler: " + car1.getReservations().size());
+        System.out.println("Members: " + member1.getReservations().size());
 
     }
+
+
+
+
 
 
 }

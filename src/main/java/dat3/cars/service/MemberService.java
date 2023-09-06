@@ -75,6 +75,7 @@ public class MemberService {
         memberRepository.delete(member);
     }
 
+    //NB er private og bruges kun internt i MemberService til deleteMemberByUsername hhv setRankingForUser.
     private Member getMemberByUsername(String username){
         return memberRepository.findById(username).
                 orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Member with this username does not exist"));

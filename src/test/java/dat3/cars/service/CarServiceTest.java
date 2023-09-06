@@ -9,14 +9,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.http.HttpStatus;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+
 @DataJpaTest
 class CarServiceTest {
     @Autowired
@@ -24,12 +23,16 @@ class CarServiceTest {
     CarService carService;
 
     Car c1, c2, c3;
-
+    boolean isInitialized = false;
     @BeforeEach
     void setUp() {
-        c1 = carRepository.save(new Car("brand1", "model1", 10.0, 1));
-        c2 = carRepository.save(new Car("brand2", "model2", 20.0, 2));
-        carService = new CarService(carRepository);
+        if(!isInitialized)
+            carRepository.deleteAll();
+            c1 = carRepository.save(new Car("brand1", "model1", 10.0, 1));
+            c2 = carRepository.save(new Car("brand2", "model2", 20.0, 2));
+            carService = new CarService(carRepository);
+            isInitialized = true;
+
     }
 
     @Test
@@ -56,7 +59,7 @@ class CarServiceTest {
         request.setBrand("newBrand");
         request.setBestDiscount(1000);
 
-        carService.editCar(request,2);
+       carService.editCar(request, c2.getId());
 
         assertEquals("newBrand", request.getBrand());
         assertEquals(1000, request.getBestDiscount());
@@ -80,7 +83,7 @@ class CarServiceTest {
 
     @Test
     void testAddCar_ExistingId(){
-        CarRequest request = new CarRequest(2,"brand2", "model2", 20.0, 2);
+        CarRequest request = new CarRequest(c1.getId(),"brand2", "model2", 20.0, 2);
         carService = new CarService(carRepository);
         ResponseStatusException exception = assertThrows(ResponseStatusException.class, ()-> carService.addCar(request));
         assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
@@ -89,7 +92,7 @@ class CarServiceTest {
 
     @Test
     void testFindByIdFound() {
-        CarResponse response = carService.findCarById(1);
+        CarResponse response = carService.findCarById(c1.getId());
         assertEquals("model1",response.getModel());
         assertEquals(10.0, response.getPricePrDay());
 
