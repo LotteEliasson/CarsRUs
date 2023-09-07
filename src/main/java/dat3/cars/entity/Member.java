@@ -1,8 +1,7 @@
 package dat3.cars.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import dat3.security.entity.UserWithRoles;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -13,16 +12,14 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "USER_TYPE")
 //Entity framework
 //Mappe frem og tilbage til databasen.
+//extends UserWithRoles ligger Member og UserWithRoles tabeller sammen i DB.
 @Entity
-public class Member extends AdminDetails{
+public class Member extends UserWithRoles {
 
-    @Id
-    private String username;
-    private String password;
-    private String email;
     private String firstName;
     private String lastName;
     private String street;
@@ -31,10 +28,7 @@ public class Member extends AdminDetails{
     private boolean approved;
     private int ranking;
 
-//    @CreationTimestamp
-//    private LocalDateTime created;
-//    @UpdateTimestamp
-//    private LocalDateTime lastEdited;
+
     //List anvendes kun fordi der ikke er rigtig mange members. Ellers vil man nøjes med de manyToOne relationer i Reservation klasse.
     //Listen er ikke nødvendig for at reservationer inkl member og car oprettes i databasetabel Reservations.
     @OneToMany(mappedBy = "member")
@@ -51,9 +45,7 @@ public class Member extends AdminDetails{
 
     public Member(String username, String password, String email, String firstName,
                   String lastName, String street, String city, String zip) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
+        super(username, password,email);
         this.firstName = firstName;
         this.lastName = lastName;
         this.street = street;
