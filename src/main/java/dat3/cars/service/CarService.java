@@ -64,5 +64,23 @@ public class CarService {
         return new CarResponse(car, true);
     }
 
+    public List<CarResponse> getCarsByBrandAndModel(String brand, String model){
+        List<Car> cars = carRepository.findByBrandAndModel(brand,model);
+        List<CarResponse> responses = cars.stream().map((car -> new CarResponse(car, false))).toList();
+        return responses;
+    }
+
+    public List<CarResponse> getCarsWithoutReservation(){
+        List<Car> cars = carRepository.findByReservationsEmpty();
+        List<CarResponse> responses = cars.stream().map((car -> new CarResponse(car, false))).toList();
+        return responses;
+    }
+
+    public List<CarResponse> getCarWithBestDiscount(){
+        List<Car> cars = carRepository.findCarsWithHighestDiscount();
+        List<CarResponse> responses = cars.stream().map((car -> new CarResponse(car, true))).toList();
+        return responses;
+    }
+
 //Mangler deletebyid se Lars løsning
 }

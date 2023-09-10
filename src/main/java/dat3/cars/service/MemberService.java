@@ -86,4 +86,11 @@ public class MemberService {
         member.setRanking(value);
         memberRepository.save(member);
     }
+
+    public List<MemberResponse> membersWithReservation(){
+        List<Member> members = memberRepository.findMemberByReservationsIsTrue();
+        List<MemberResponse> responses = members.stream().map((member -> new MemberResponse(member, false))).toList();
+        return responses;
+    }
+
 }

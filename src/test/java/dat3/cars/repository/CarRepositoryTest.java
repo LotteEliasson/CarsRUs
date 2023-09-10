@@ -33,4 +33,10 @@ class CarRepositoryTest {
         long count = carRepository.count();
         assertEquals(3, count);
     }
+
+    @Test
+    public void avgPricePrDay(){
+        double avg = carRepository.findAvgPriceDay();
+        assertEquals(71, avg);
+    }
 }

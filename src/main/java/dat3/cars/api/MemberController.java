@@ -61,7 +61,10 @@ import java.util.List;
         memberService.deleteMemberByUsername(username);
         }
 
-
+        @GetMapping("/memberres")
+        List<MemberResponse> membersWithReservations(){
+         return memberService.membersWithReservation();
+        }
     }
 
 

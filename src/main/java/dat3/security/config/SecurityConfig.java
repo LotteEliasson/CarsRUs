@@ -75,7 +75,7 @@ public class SecurityConfig {
 
             //Use this to completely disable security (Will not work if endpoints has been marked with @PreAuthorize)
 //            .requestMatchers("/", "/**").permitAll());
-
+// Gør man kan tilgå databasen uden om security.
             .requestMatchers(mvcMatcherBuilder.pattern("/**")).permitAll());
             //This is for demo purposes only, and should be removed for a real system
             //.requestMatchers(HttpMethod.GET, "/api/demouser/user-only").hasAuthority("USER")

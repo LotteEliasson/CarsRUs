@@ -30,4 +30,9 @@ public class ReservationController {
        ReservationResponse response = reservationService.reserveCar(request);
        return response;
     }
+    @GetMapping("/{username}")
+    List<ReservationResponse> reservationByMembers(@PathVariable String username){
+        return reservationService.ReservationsByMembers(username);
+    }
+
 }

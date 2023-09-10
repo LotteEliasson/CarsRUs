@@ -44,6 +44,15 @@ public class CarController {
         return carService.editCar(bodyC,id);
     }
 
+    @GetMapping("/noreservations")
+    List<CarResponse> getCarsWithoutReservations(){
+        return carService.getCarsWithoutReservation();
+    }
+
+    @GetMapping("/bestdisc")
+    List<CarResponse> getBestDiscount(){
+        return carService.getCarWithBestDiscount();
+    }
 
 
 }

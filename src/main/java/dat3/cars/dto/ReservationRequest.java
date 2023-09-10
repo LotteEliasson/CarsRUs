@@ -12,7 +12,7 @@ import java.time.LocalDate;
 public class ReservationRequest {
 
     int carId;
-    String userName;
+    String username;
     @JsonFormat(pattern = "dd-MM-yyyy",shape = JsonFormat.Shape.STRING)
     LocalDate date;
 }
