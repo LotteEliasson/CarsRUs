@@ -4,6 +4,7 @@ SAmtidig uploader jeg måske senere søndag nogle flere test i forhold til REpos
 
 
 - Where and why you have used a @OneToMany annotation
+- 
 
   
 @OneToMany er anvendt I Car og i Member Entity, da en Car hhv. en Member kan have mange Reservations. MappetBy referere til at Car/Member har en relationtion til en Entity klasse her Reservations, hvori de fremkommer som foreign keys. Derved kan man gennem objektet reservations lave en liste af Car hhv Members der har en tilknytning til en eller flere reservationer.
