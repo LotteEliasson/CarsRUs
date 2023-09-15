@@ -49,10 +49,10 @@ public class ReservationService {
                 orElseThrow(()-> new ResponseStatusException(HttpStatus.BAD_REQUEST,"Member with this username does not exist"));
         Car car = carRepository.findById(bodyReservation.getCarId()).
                 orElseThrow(()-> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Car with this id does not exist"));
-//        if(reservationRepository.existsByCarIdAndRentalDate(bodyReservation.getCarId(), bodyReservation.getDate())){
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Car is reserved on this date");
-//        }
-        Reservation res = new Reservation(bodyReservation.getDate(), member, car);
+        if(reservationRepository.existsByCarIdAndRentalDate(bodyReservation.getCarId(), bodyReservation.getDate())){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Car is reserved on this date");
+       }
+        Reservation res = reservationRepository.save(new Reservation(bodyReservation.getDate(), member, car));
 
         return new ReservationResponse(res);
     }

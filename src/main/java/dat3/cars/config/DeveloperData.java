@@ -96,7 +96,9 @@ public class DeveloperData implements ApplicationRunner {
         memberRepository.saveAll(members);
 
         Car car1 = new Car("bil", "bil", 100,10);
+        Car car2 = new Car("bil2", "bil2", 200,20);
         carRepository.save(car1);
+        carRepository.save(car2);
 
         Member member1 = new Member("test", "test", "test,", "test", "test", "test","test","test");
         memberRepository.save(member1);
@@ -104,14 +106,17 @@ public class DeveloperData implements ApplicationRunner {
         LocalDate date2 = date1.plusDays(1);
         Reservation r1 = new Reservation(date1,member1, car1);
         Reservation r2 = new Reservation(date2, member1, car1);
+        Reservation r3 = new Reservation(date1, member1, car2);
         reservationRepository.save(r1);
         reservationRepository.save(r2);
+        reservationRepository.save(r3);
 
         System.out.println("Cars: " + car1.getReservations().size());
         System.out.println("Members: " + member1.getReservations().size());
         System.out.println("Found: " + reservationRepository.existsByCarIdAndRentalDate(car1.getId(),date1));
         System.out.println("NOT Found: " + reservationRepository.existsByCarIdAndRentalDate(car1.getId(),date1.plusDays(5)));
 
+        System.out.println("third test reservation " + car2.getReservations().size() + ", " + member1.getReservations().size() );
         setupUserWithRoleUsers();
     }
 
