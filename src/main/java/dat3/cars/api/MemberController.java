@@ -11,6 +11,7 @@ import java.util.List;
 
     //RestController konverterer andre 'sprog' til Java via JSON eksv sql.
     @RestController
+    @CrossOrigin
     @RequestMapping("api/members")
     public class MemberController {
 

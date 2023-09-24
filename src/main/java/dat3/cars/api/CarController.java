@@ -11,7 +11,8 @@ import java.util.List;
 
 
 
-@RestController
+@RestController //definerer automatisk at svar for get/post etc er JSON
+@CrossOrigin
 @RequestMapping("api/cars")
 public class CarController {
     CarService carService;

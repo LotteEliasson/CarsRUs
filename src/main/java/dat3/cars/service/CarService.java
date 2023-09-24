@@ -56,6 +56,7 @@ public class CarService {
         car.setModel(bodyCar.getModel());
         car.setPricePrDay(bodyCar.getPricePrDay());
         car.setBestDiscount(bodyCar.getBestDiscount());
+        carRepository.save(car);
         return ResponseEntity.ok(true);
     }
 
